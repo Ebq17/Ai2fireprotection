@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ai2fireprotection – Vorbeugender Brandschutz Mainz &amp; Rhein-Main</title>
+  <meta name="description" content="Zertifizierter Brandschutzbeauftragter in Mainz &amp; Rhein-Main: Beratung, Schulungen, Begehungen, DGUV V3, Evakuierungsplanung – für Immobilien, Rechenzentren, Hotellerie, Gastronomie und Museen.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%A5%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #0e0c0b;
+      color: #f2ede8;
+      font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-wrap: pretty;
+    }
+    .page {
+      --accent: #ff5a1f;
+      --bg: #0e0c0b;
+      --bg-elev: #17130f;
+      --bg-elev-2: #201a15;
+      --line: rgba(242, 237, 232, 0.09);
+      --line-strong: rgba(242, 237, 232, 0.16);
+      --text: #f5f0ea;
+      --text-dim: #cabfb3;
+      --text-mute: #8f8378;
+      --accent-2: color-mix(in oklch, var(--accent), black 30%);
+      --accent-soft: color-mix(in oklch, var(--accent), transparent 82%);
+      --accent-soft-2: color-mix(in oklch, var(--accent), transparent 65%);
+      position: relative;
+      background: var(--bg);
+      overflow-x: clip;
+    }
+    /* light band: re-declares the palette tokens for sections that break from the dark base */
+    .light {
+      --bg: #f7f3ee;
+      --bg-elev: #ffffff;
+      --bg-elev-2: #efe9e1;
+      --line: rgba(23, 17, 12, 0.08);
+      --line-strong: rgba(23, 17, 12, 0.15);
+      --text: #17130f;
+      --text-dim: #4c4139;
+      --text-mute: #8b8074;
+      background: var(--bg);
+    }
+    .dark-band { background: var(--bg-elev); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    h1, h2, h3, .brand-word {
+      font-family: "Oswald", "Arial Narrow", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 1.05;
+      margin: 0;
+      color: var(--text);
+    }
+    p { margin: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--text); }
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 48px);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Oswald", sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 1.5px;
+      background: var(--accent);
+      display: block;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 52px;
+      padding: 0 28px;
+      border-radius: 3px;
+      font-family: "Oswald", sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-sm { height: 40px; padding: 0 18px; font-size: 13px; }
+    .btn-accent {
+      background: linear-gradient(180deg, color-mix(in oklch, var(--accent), white 8%), var(--accent-2));
+      color: #1a0e07;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.25) inset, 0 12px 28px -12px var(--accent);
+    }
+    .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset, 0 18px 34px -12px var(--accent); color: #1a0e07; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--line-strong);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--text); background: var(--accent-soft); }
+    .btn[disabled] { opacity: 0.45; cursor: not-allowed; transform: none !important; }
+    .btn-block { width: 100%; }
+
+    /* ---------- nav ---------- */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 0;
+      transition: background 0.3s ease, padding 0.3s ease, border-color 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.is-scrolled {
+      background: rgba(14, 12, 11, 0.86);
+      backdrop-filter: blur(10px);
+      padding: 12px 0;
+      border-color: var(--line);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-mark { width: 34px; height: 34px; color: var(--accent); flex: none; }
+    .brand-word { font-size: 18px; font-weight: 600; letter-spacing: 0.02em; }
+    .brand-word b { color: var(--accent); font-weight: 600; }
+    .nav-toggle-input { display: none; }
+    .nav-links { display: flex; align-items: center; gap: 34px; }
+    .nav-links a:not(.btn) {
+      font-family: "Oswald", sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .nav-links a:not(.btn):hover { color: var(--text); }
+    .nav-toggle-btn { display: none; cursor: pointer; padding: 8px; color: var(--text); }
+
+    /* ---------- reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .reveal-1 { transition-delay: 0.05s; } .reveal-2 { transition-delay: 0.12s; }
+    .reveal-3 { transition-delay: 0.19s; } .reveal-4 { transition-delay: 0.26s; }
+
+    /* ---------- hero ---------- */
+    .hero {
+      position: relative;
+      padding: clamp(140px, 22vw, 210px) 0 clamp(120px, 14vw, 170px);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: -20% -10% auto -10%;
+      height: 130%;
+      background:
+        radial-gradient(60% 55% at 78% 8%, var(--accent-soft), transparent 60%),
+        radial-gradient(40% 40% at 8% 30%, rgba(242,237,232,0.05), transparent 65%);
+      animation: glow 10s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 64px 64px;
+      -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.5), transparent 78%);
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.5), transparent 78%);
+      pointer-events: none;
+    }
+    @keyframes glow { from { opacity: 0.7; transform: translateY(0); } to { opacity: 1; transform: translateY(2%); } }
+    .scanline { position: absolute; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.55; animation: scan 7s linear infinite; pointer-events: none; }
+    @keyframes scan { 0% { top: 8%; opacity: 0; } 8% { opacity: 0.6; } 50% { opacity: 0.6; } 92% { opacity: 0; } 100% { top: 92%; opacity: 0; } }
+    .skyline { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(90px, 16vw, 190px); display: flex; align-items: flex-end; gap: clamp(6px, 1.4vw, 16px); padding: 0 clamp(20px, 5vw, 48px); opacity: 0.5; pointer-events: none; }
+    .skyline i { display: block; flex: none; background: linear-gradient(180deg, var(--bg-elev-2), var(--bg)); border-top: 1px solid var(--line-strong); }
+    .hero-inner { position: relative; z-index: 1; max-width: 760px; }
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 68px);
+      margin-top: 18px;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); display: block; }
+    .hero-sub {
+      margin-top: 22px;
+      max-width: 560px;
+      font-size: clamp(16px, 1.6vw, 18.5px);
+      line-height: 1.65;
+      color: var(--text-dim);
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 38px; }
+
+    /* ---------- trust / stats bar ---------- */
+    .stats { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-elev); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 1px; background: var(--line); }
+    .stat { background: var(--bg-elev); padding: clamp(26px, 4vw, 40px) clamp(16px, 2vw, 28px); text-align: left; }
+    .stat-num { font-family: "Oswald", sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 36px); color: var(--accent); letter-spacing: 0.01em; }
+    .stat-label { margin-top: 6px; font-size: 13px; color: var(--text-dim); letter-spacing: 0.02em; line-height: 1.4; }
+
+    /* ---------- section shell ---------- */
+    section { position: relative; padding: clamp(64px, 9vw, 108px) 0; }
+    .section-head { max-width: 640px; margin-bottom: clamp(40px, 6vw, 64px); }
+    .section-head h2 { font-size: clamp(28px, 3.4vw, 42px); margin-top: 14px; }
+    .section-head p { margin-top: 16px; color: var(--text-dim); font-size: 16px; line-height: 1.6; }
+    .section-head.center { max-width: 700px; margin-left: auto; margin-right: auto; text-align: center; }
+    .section-head.center .eyebrow::before { display: none; }
+    .divider { height: 1px; background: var(--line); border: none; margin: 0; }
+
+    /* ---------- problem ---------- */
+    .problem { background: var(--bg-elev); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .problem-head { max-width: 720px; }
+    .problem-head h2 { font-size: clamp(28px, 4vw, 46px); }
+    .problem-head p { margin-top: 20px; color: var(--text-dim); font-size: 16.5px; line-height: 1.7; max-width: 620px; }
+    .problem-lead { margin-top: 28px; font-size: 19px; color: var(--text); font-weight: 500; }
+    .problem-grid { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 28px; }
+    .problem-card { display: flex; flex-direction: column; gap: 14px; }
+    .problem-card .num { font-family: "Oswald", sans-serif; color: var(--accent); font-size: 13px; letter-spacing: 0.14em; }
+    .problem-card h3 { font-size: 17px; letter-spacing: 0.02em; }
+    .problem-card p { color: var(--text-dim); font-size: 14.5px; line-height: 1.55; }
+
+    /* ---------- services ---------- */
+    .services-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+    .service-card { background: var(--bg-elev); padding: 30px 26px; display: flex; flex-direction: column; gap: 16px; transition: background 0.25s ease, transform 0.25s ease; }
+    .service-card:hover { background: var(--bg-elev-2); transform: translateY(-3px); }
+    .service-icon { width: 44px; height: 44px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; flex: none; }
+    .service-icon svg { width: 24px; height: 24px; }
+    .service-card h3 { font-size: 16.5px; letter-spacing: 0.01em; }
+    .service-card p { color: var(--text-dim); font-size: 14.5px; line-height: 1.55; flex-grow: 1; }
+    .service-link { font-family: "Oswald", sans-serif; font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mute); display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s ease, gap 0.2s ease; }
+    .service-card:hover .service-link { color: var(--accent); gap: 10px; }
+
+    /* ---------- industries (illustration tiles) ---------- */
+    .industries-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
+    .industry-tile { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--bg-elev); transition: border-color 0.25s ease, transform 0.25s ease; }
+    .industry-tile:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+    .industry-visual { position: relative; height: 160px; display: flex; align-items: center; justify-content: center; background: linear-gradient(155deg, var(--bg-elev-2), var(--bg-elev)); overflow: hidden; }
+    .industry-visual::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 20px 20px; }
+    .industry-visual svg { width: 56px; height: 56px; color: var(--accent); position: relative; }
+    .industry-body { padding: 22px 24px 26px; }
+    .industry-body h3 { font-size: 16px; letter-spacing: 0.03em; }
+    .industry-body p { margin-top: 8px; color: var(--text-dim); font-size: 14px; line-height: 1.55; }
+    .industries-grid .industry-tile:nth-child(4),
+    .industries-grid .industry-tile:nth-child(5) { grid-column: span 1; }
+
+    /* ---------- process ---------- */
+    .process-list { position: relative; max-width: 640px; margin: 0 auto; padding-left: 8px; }
+    .process-list::before { content: ""; position: absolute; left: 27px; top: 10px; bottom: 10px; width: 1px; background: var(--line-strong); }
+    .process-step { position: relative; display: flex; gap: 24px; padding-bottom: 44px; }
+    .process-step:last-child { padding-bottom: 0; }
+    .process-num { flex: none; width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--line-strong); background: var(--bg-elev); display: flex; align-items: center; justify-content: center; font-family: "Oswald", sans-serif; font-weight: 600; color: var(--accent); font-size: 15px; z-index: 1; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+    .process-step.is-visible .process-num { border-color: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
+    .process-text h3 { font-size: 19px; margin-top: 10px; }
+    .process-text p { margin-top: 8px; color: var(--text-dim); font-size: 14.5px; line-height: 1.6; max-width: 420px; }
+
+    /* ---------- about ---------- */
+    .about-top { display: grid; grid-template-columns: 260px 1fr; gap: clamp(32px, 5vw, 64px); align-items: start; }
+    .avatar { width: 100%; aspect-ratio: 1; border-radius: 6px; background: linear-gradient(155deg, var(--bg-elev-2), var(--bg-elev)); border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .avatar::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 22px 22px; opacity: 0.6; }
+    .avatar-ring { position: absolute; width: 74%; height: 74%; border: 1px solid var(--accent-soft-2); border-radius: 50%; animation: pulse-ring 3.2s ease-out infinite; }
+    @keyframes pulse-ring { 0% { transform: scale(0.72); opacity: 0.9; } 100% { transform: scale(1.15); opacity: 0; } }
+    .avatar-mono { position: relative; font-family: "Oswald", sans-serif; font-size: 64px; font-weight: 600; color: var(--accent); }
+    .about-name { font-size: 26px; margin-top: 4px; }
+    .about-role { color: var(--text-mute); font-size: 13.5px; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 8px; font-family: "Oswald", sans-serif; }
+    .about-bio { margin-top: 18px; color: var(--text-dim); font-size: 15.5px; line-height: 1.7; max-width: 620px; }
+    .about-links { margin-top: 22px; display: flex; gap: 14px; }
+    .icon-link { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: center; color: var(--text-dim); transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; }
+    .icon-link svg { width: 18px; height: 18px; }
+    .icon-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+    .sub-head { display: flex; align-items: baseline; gap: 14px; margin: clamp(56px, 7vw, 80px) 0 30px; }
+    .sub-head h3 { font-size: 20px; color: var(--text); }
+
+    .creds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+    .cred-card { padding: 22px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg-elev); }
+    .cred-year { font-family: "Oswald", sans-serif; color: var(--accent); font-size: 13px; letter-spacing: 0.08em; font-weight: 600; }
+    .cred-card h4 { margin-top: 10px; font-size: 15.5px; font-weight: 600; color: var(--text); font-family: "IBM Plex Sans", sans-serif; text-transform: none; letter-spacing: 0; }
+    .cred-card p { margin-top: 6px; font-size: 13.5px; color: var(--text-mute); line-height: 1.5; }
+
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px; background: var(--line-strong); }
+    .tl-item { position: relative; padding-bottom: 34px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot { position: absolute; left: -28px; top: 3px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+    .tl-year { font-family: "Oswald", sans-serif; font-size: 13px; letter-spacing: 0.08em; color: var(--accent); font-weight: 600; }
+    .tl-item h4 { margin-top: 6px; font-size: 17px; font-weight: 600; color: var(--text); font-family: "IBM Plex Sans", sans-serif; text-transform: none; letter-spacing: 0; }
+    .tl-item .place { color: var(--text-mute); font-size: 13.5px; margin-top: 3px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag { padding: 9px 16px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 13.5px; color: var(--text-dim); background: var(--bg-elev); }
+
+    /* ---------- brandschutz-check ---------- */
+    .check { background: linear-gradient(155deg, var(--bg-elev-2), var(--bg-elev)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .check-wrap { max-width: 620px; margin: 0 auto; text-align: center; }
+    .check-wrap .section-head { margin-left: auto; margin-right: auto; }
+    .check-panel { margin-top: 40px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--bg); padding: clamp(28px, 5vw, 44px); text-align: left; }
+    .check-progress { display: flex; gap: 6px; margin-bottom: 28px; }
+    .check-dot { height: 4px; flex: 1; border-radius: 2px; background: var(--line-strong); transition: background 0.3s ease; }
+    .check-dot.is-done { background: var(--accent); }
+    .check-q { font-size: 19px; color: var(--text); line-height: 1.4; }
+    .check-options { margin-top: 24px; display: flex; gap: 14px; flex-wrap: wrap; }
+    .check-option { flex: 1; min-width: 140px; padding: 16px 18px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--bg-elev); color: var(--text); font-family: "Oswald", sans-serif; font-size: 14px; letter-spacing: 0.02em; text-align: center; cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease; }
+    .check-option:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .check-intro-icon { width: 48px; height: 48px; color: var(--accent); margin: 0 auto 18px; }
+    .check-result-icon { width: 44px; height: 44px; color: var(--accent); margin-bottom: 18px; }
+    .check-result p { color: var(--text-dim); font-size: 15.5px; line-height: 1.65; }
+    .check-result .btn { margin-top: 26px; }
+    .check-restart { display: block; margin-top: 18px; font-size: 13px; color: var(--text-mute); text-align: center; cursor: pointer; }
+    .check-restart:hover { color: var(--accent); }
+    .center-col { text-align: center; }
+
+    /* ---------- cta banner ---------- */
+    .cta-banner { background: var(--bg-elev); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+    .cta-banner::before { content: ""; position: absolute; inset: 0; background: radial-gradient(50% 90% at 90% 50%, var(--accent-soft), transparent 65%); pointer-events: none; }
+    .cta-inner { position: relative; text-align: center; max-width: 720px; margin: 0 auto; }
+    .cta-inner h2 { font-size: clamp(30px, 4.5vw, 48px); }
+    .cta-inner p { margin-top: 20px; color: var(--text-dim); font-size: 16.5px; line-height: 1.6; }
+    .cta-row { margin-top: 34px; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; justify-content: center; }
+    .cta-phone { font-family: "Oswald", sans-serif; font-size: 16px; font-weight: 600; color: var(--text); display: inline-flex; align-items: center; gap: 8px; }
+    .cta-phone svg { width: 18px; height: 18px; color: var(--accent); }
+
+    /* ---------- contact ---------- */
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 72px); align-items: start; }
+    .contact h2 { font-size: clamp(30px, 4vw, 46px); margin-top: 14px; }
+    .contact-sub { margin-top: 18px; color: var(--text-dim); font-size: 16px; line-height: 1.65; max-width: 480px; }
+    .contact-card { border: 1px solid var(--line-strong); border-radius: 6px; padding: clamp(22px, 3vw, 30px); background: var(--bg-elev); margin-top: 34px; }
+    .contact-row { display: flex; align-items: flex-start; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .contact-row:last-child { border-bottom: none; }
+    .contact-row svg { width: 20px; height: 20px; color: var(--accent); flex: none; margin-top: 2px; }
+    .contact-row .lbl { font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mute); font-family: "Oswald", sans-serif; }
+    .contact-row .val { margin-top: 4px; font-size: 15px; color: var(--text); }
+
+    .form { border: 1px solid var(--line-strong); border-radius: 8px; padding: clamp(26px, 4vw, 36px); background: var(--bg-elev); }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-family: "Oswald", sans-serif; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mute); }
+    .field input, .field select, .field textarea {
+      background: var(--bg);
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      color: var(--text);
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 14.5px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .field textarea { resize: vertical; min-height: 90px; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+    .form-note { margin-top: 16px; font-size: 12.5px; color: var(--text-mute); line-height: 1.5; }
+    .form .btn { margin-top: 22px; }
+
+    /* ---------- footer ---------- */
+    footer { padding: 34px 0; }
+    .footer-inner { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; color: var(--text-mute); font-size: 13px; }
+    .footer-inner .fine { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-nav { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-nav a { color: var(--text-mute); font-size: 13px; }
+    .footer-nav a:hover { color: var(--text); }
+
+    /* ---------- sticky mobile cta ---------- */
+    .sticky-cta { display: none; }
+
+    @media (max-width: 860px) {
+      .nav-toggle-btn { display: flex; }
+      .nav-links {
+        position: fixed; inset: 66px 0 0 0; margin: 0; padding: 28px 24px;
+        flex-direction: column; align-items: flex-start; gap: 22px;
+        background: rgba(14,12,11,0.98); backdrop-filter: blur(10px);
+        transform: translateY(-10px); opacity: 0; pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+      .nav-toggle-input:checked ~ .nav-links { opacity: 1; transform: translateY(0); pointer-events: auto; }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .problem-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .industries-grid { grid-template-columns: 1fr; }
+      .about-top { grid-template-columns: 1fr; }
+      .avatar { max-width: 200px; }
+      .creds { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .check-options { flex-direction: column; }
+      .sticky-cta {
+        display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+        gap: 10px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+        background: rgba(14,12,11,0.95); backdrop-filter: blur(10px);
+        border-top: 1px solid var(--line);
+      }
+      .sticky-cta .btn { flex: 1; height: 46px; }
+      .sticky-cta .icon-link { height: 46px; width: 46px; }
+      .page { padding-bottom: 78px; }
+    }
+    @media (min-width: 861px) and (max-width: 1080px) {
+      .services-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .industries-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+  </style>
+</head>
+<body>
+<div class="page" id="top">
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2c2.2 3 3.4 5.1 3.4 7.3 0 1-.4 1.8-1 2.5.9-.2 1.7-.8 2.1-1.7 1 1.3 1.5 2.7 1.5 4.1 0 3.7-3.1 6.8-8 6.8s-8-3.1-8-6.8c0-2.6 1.4-4.6 3-6.3-.1 1 .1 1.9.7 2.6-.3-3.6 1.6-6.4 6.3-8.5Z"/>
+        </svg>
+        <span class="brand-word">Ai<b>2</b>FireProtection</span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+      <nav class="nav-links">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#branchen">Branchen</a>
+        <a href="#ueber-mich">Über mich</a>
+        <a href="#kontakt" class="btn btn-accent btn-sm">Beratung anfragen →</a>
+      </nav>
+      <label for="nav-toggle" class="nav-toggle-btn" aria-label="Menü öffnen">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </label>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="scanline"></div>
+    <div class="skyline" aria-hidden="true">
+      <i style="width:8%;height:38%;"></i><i style="width:6%;height:62%;"></i><i style="width:9%;height:48%;"></i>
+      <i style="width:7%;height:82%;"></i><i style="width:10%;height:56%;"></i><i style="width:6%;height:70%;"></i>
+      <i style="width:8%;height:44%;"></i><i style="width:9%;height:66%;"></i><i style="width:7%;height:36%;"></i>
+      <i style="width:10%;height:58%;"></i>
+    </div>
+    <div class="container hero-inner">
+      <span class="eyebrow reveal is-visible">Brandschutz · Mainz &amp; Rhein-Main</span>
+      <h1 class="reveal is-visible reveal-1">Brandschutz,<br>der wirkt.<em>Bevor es brennt.</em></h1>
+      <p class="hero-sub reveal is-visible reveal-2">Vorbeugender Brandschutz für Unternehmen, Immobilien und Einrichtungen im Rhein-Main-Gebiet. Strukturiert. Persönlich. Praxisnah.</p>
+      <div class="hero-cta reveal is-visible reveal-3">
+        <a href="#kontakt" class="btn btn-accent">Beratung anfragen →</a>
+        <a href="#leistungen" class="btn btn-ghost">Leistungen entdecken</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="container">
+      <div class="stats-grid reveal">
+        <div class="stat"><div class="stat-num" data-count-to="10" data-suffix="+">0+</div><div class="stat-label">Jahre Erfahrung im Brandschutz</div></div>
+        <div class="stat"><div class="stat-num">Zertifiziert</div><div class="stat-label">Brandschutzbeauftragter seit 2018</div></div>
+        <div class="stat"><div class="stat-num" data-count-to="5" data-suffix="">0</div><div class="stat-label">Branchen im Fokus</div></div>
+        <div class="stat"><div class="stat-num">Rhein-Main</div><div class="stat-label">Regional für Sie da</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="container">
+      <div class="problem-head reveal">
+        <span class="eyebrow">Warum vorbeugender Brandschutz</span>
+        <h2>Ein Feuer kündigt sich nicht an.</h2>
+        <p>Risiken entstehen oft dort, wo sie niemand erwartet. Unklare Abläufe, fehlende Unterweisungen oder unentdeckte Schwachstellen können im Ernstfall schwerwiegende Folgen haben.</p>
+        <p class="problem-lead">Ihr Brandschutz sollte vorbereitet sein.</p>
+      </div>
+      <div class="problem-grid reveal">
+        <div class="problem-card">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.2" y1="15.2" x2="20.5" y2="20.5"/></svg>
+          <h3>Risiken erkennen</h3>
+          <p>Gefahren frühzeitig identifizieren, bevor sie zum Problem werden.</p>
+        </div>
+        <div class="problem-card">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><g transform="rotate(45 12 12)"><rect x="10" y="3" width="4" height="18" rx="2"/><circle cx="12" cy="4" r="2.4"/><circle cx="12" cy="20" r="2.4"/></g></svg>
+          <h3>Maßnahmen umsetzen</h3>
+          <p>Konkrete, praxistaugliche Lösungen für Ihren Betrieb entwickeln.</p>
+        </div>
+        <div class="problem-card">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M12 3 4 6.5v5C4 16.5 7.4 20.3 12 21c4.6-.7 8-4.5 8-9.5v-5L12 3Z"/><polyline points="8.5,12 11,14.5 15.5,9.5"/></svg>
+          <h3>Sicherheit schaffen</h3>
+          <p>Eine Brandschutzorganisation aufbauen, die dauerhaft trägt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="leistungen">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Leistungen</span>
+        <h2>Brandschutz ist mehr als eine Pflicht.</h2>
+        <p>Ganzheitliche Brandschutzbetreuung für Unternehmen und Einrichtungen — von der strategischen Beratung bis zur praktischen Räumungsübung.</p>
+      </div>
+
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/><line x1="3" y1="12.5" x2="21" y2="12.5"/></svg></div>
+          <h3>Strategische Beratung</h3>
+          <p>Unterstützung der Geschäftsführung bei allen strategischen Fragen des Brandschutzes.</p>
+          <a class="service-link" href="#kontakt">Anfragen →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,4 22,9 12,14 2,9"/><path d="M6 11v5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-5"/></svg></div>
+          <h3>Ausbildung zum Brandschutzbeauftragten</h3>
+          <p>Rechtskonforme, praxisnahe Qualifizierung Ihrer Mitarbeiter nach geltenden Vorschriften.</p>
+          <a class="service-link" href="#kontakt">Anfragen →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9" r="2.4"/><path d="M2.5 20v-1.5A5.5 5.5 0 0 1 8 13a5.5 5.5 0 0 1 5.5 5.5V20"/><path d="M14.5 20v-1.2a4.7 4.7 0 0 1 6.5-4.3"/></svg></div>
+          <h3>Schulungen &amp; Unterweisungen</h3>
+          <p>Regelmäßige, praxisorientierte Brandschutzschulungen für Ihr gesamtes Team.</p>
+          <a class="service-link" href="#kontakt">Anfragen →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><rect x="9" y="2" width="6" height="3.5" rx="1"/><polyline points="8,13 11,16 16,10"/></svg></div>
+          <h3>Regelmäßige Begehungen</h3>
+          <p>Systematische Sicherheitsrundgänge zur frühzeitigen Erkennung von Gefahrenquellen.</p>
+          <a class="service-link" href="#kontakt">Anfragen →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(45 12 12)"><rect x="10" y="3" width="4" height="18" rx="2"/><circle cx="12" cy="4" r="2.4"/><circle cx="12" cy="20" r="2.4"/></g></svg></div>
+          <h3>Wartung von Brandschutzeinrichtungen</h3>
+          <p>Instandhaltung von Brandschutztüren und -anlagen nach geltenden Vorschriften.</p>
+          <a class="service-link" href="#kontakt">Anfragen →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 5,14 11,14 9,22 20,10 13,10"/></svg></div>
+          <h3>DGUV V3 Prüfungen</h3>
+          <p>Prüfung orts&shy;veränderlicher und ortsfester elektrischer Betriebsmittel.</p>
+          <a class="service-link" href="#kontakt">Anfragen →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="12" height="16" rx="1.5"/><line x1="7.5" y1="8" x2="12.5" y2="8"/><line x1="7.5" y1="11.5" x2="12.5" y2="11.5"/><circle cx="16.5" cy="16.5" r="3"/><line x1="18.8" y1="18.8" x2="21.5" y2="21.5"/></svg></div>
+          <h3>Brandschutzaudits</h3>
+          <p>Analyse baulicher, technischer und organisatorischer Brandschutzmaßnahmen.</p>
+          <a class="service-link" href="#kontakt">Anfragen →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.6"/><circle cx="18" cy="6" r="2.6"/><circle cx="12" cy="18" r="2.6"/><line x1="7.8" y1="7.8" x2="11" y2="16"/><line x1="16.2" y1="7.8" x2="13" y2="16"/><line x1="8.7" y1="6" x2="15.3" y2="6"/></svg></div>
+          <h3>Behördenkoordination</h3>
+          <p>Abstimmung mit Feuerwehr, Behörden und Versicherern in Ihrem Auftrag.</p>
+          <a class="service-link" href="#kontakt">Anfragen →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="18" rx="1"/><circle cx="11" cy="12" r="0.9" fill="currentColor" stroke="none"/><line x1="16" y1="12" x2="22" y2="12"/><polyline points="19,9 22,12 19,15"/></svg></div>
+          <h3>Räumungsübungen</h3>
+          <p>Planung und Durchführung realitätsnaher Notfall- und Räumungsübungen.</p>
+          <a class="service-link" href="#kontakt">Anfragen →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg></div>
+          <h3>Führungskräfteberatung</h3>
+          <p>Individuelle Beratung für Führungskräfte und Entscheider im Betrieb.</p>
+          <a class="service-link" href="#kontakt">Anfragen →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANCHEN -->
+  <section id="branchen" class="dark-band">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Branchen</span>
+        <h2>Brandschutz für Ihre Branche.</h2>
+        <p>Jede Branche bringt eigene Anforderungen an den Brandschutz mit — von der Belegungsdichte bis zu schützenswerten Kulturgütern.</p>
+      </div>
+      <div class="industries-grid reveal">
+        <div class="industry-tile">
+          <div class="industry-visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="9" height="18"/><line x1="8.5" y1="6.5" x2="8.5" y2="6.6"/><line x1="8.5" y1="10" x2="8.5" y2="10.1"/><line x1="8.5" y1="13.5" x2="8.5" y2="13.6"/><line x1="12.5" y1="6.5" x2="12.5" y2="6.6"/><line x1="12.5" y1="10" x2="12.5" y2="10.1"/><line x1="12.5" y1="13.5" x2="12.5" y2="13.6"/><line x1="4" y1="21" x2="17" y2="21"/></svg>
+          </div>
+          <div class="industry-body"><h3>Immobilien</h3><p>Sicherheit für Gebäude, Betreiber und Nutzer.</p></div>
+        </div>
+        <div class="industry-tile">
+          <div class="industry-visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="6" rx="1"/><rect x="4" y="14" width="16" height="6" rx="1"/><line x1="8" y1="7" x2="8" y2="7.1"/><line x1="8" y1="17" x2="8" y2="17.1"/><line x1="12" y1="7" x2="17" y2="7"/><line x1="12" y1="17" x2="17" y2="17"/></svg>
+          </div>
+          <div class="industry-body"><h3>Rechenzentren</h3><p>Wenn Ausfall keine Option ist.</p></div>
+        </div>
+        <div class="industry-tile">
+          <div class="industry-visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="7" height="5" rx="1"/><path d="M3 21v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><line x1="3" y1="18" x2="21" y2="18"/><line x1="3" y1="13" x2="3" y2="8"/></svg>
+          </div>
+          <div class="industry-body"><h3>Hotellerie</h3><p>Sicherheit für Gäste und Mitarbeiter.</p></div>
+        </div>
+        <div class="industry-tile">
+          <div class="industry-visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="2" x2="6" y2="10"/><line x1="4.5" y1="2" x2="4.5" y2="6"/><line x1="7.5" y1="2" x2="7.5" y2="6"/><line x1="6" y1="10" x2="6" y2="22"/><path d="M17 2c-1.6 1.4-2.4 3-2.4 5.4S15.4 12 17 13"/><line x1="17" y1="2" x2="17" y2="22"/></svg>
+          </div>
+          <div class="industry-body"><h3>Gastronomie</h3><p>Brandschutz für komplexe Betriebsabläufe.</p></div>
+        </div>
+        <div class="industry-tile">
+          <div class="industry-visual">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,8 12,3 20,8"/><line x1="3" y1="20" x2="21" y2="20"/><line x1="5" y1="20" x2="5" y2="9.5"/><line x1="9" y1="20" x2="9" y2="9.5"/><line x1="12" y1="20" x2="12" y2="9.5"/><line x1="15" y1="20" x2="15" y2="9.5"/><line x1="19" y1="20" x2="19" y2="9.5"/></svg>
+          </div>
+          <div class="industry-body"><h3>Museen &amp; Kultur</h3><p>Schutz von Menschen, Gebäuden und wertvollen Objekten.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PROCESS -->
+  <section class="light">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Vorgehen</span>
+        <h2>Von der Analyse zur Sicherheit.</h2>
+      </div>
+      <div class="process-list">
+        <div class="process-step reveal">
+          <div class="process-num">01</div>
+          <div class="process-text"><h3>Analyse</h3><p>Wir betrachten Ihre aktuelle Situation vor Ort und im Detail.</p></div>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-num">02</div>
+          <div class="process-text"><h3>Risiken erkennen</h3><p>Wir identifizieren Schwachstellen in Organisation und Technik.</p></div>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-num">03</div>
+          <div class="process-text"><h3>Maßnahmen</h3><p>Wir entwickeln konkrete, umsetzbare Lösungen für Ihren Betrieb.</p></div>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-num">04</div>
+          <div class="process-text"><h3>Begleitung</h3><p>Wir sorgen dafür, dass Brandschutz dauerhaft funktioniert.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ABOUT -->
+  <section id="ueber-mich">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Über mich</span>
+        <h2>Brandschutz braucht Verantwortung.</h2>
+      </div>
+
+      <div class="about-top reveal">
+        <div class="avatar"><span class="avatar-ring"></span><span class="avatar-mono">IA</span></div>
+        <div>
+          <div class="about-name">Isaac Addae</div>
+          <div class="about-role">Zertifizierter Brandschutzbeauftragter</div>
+          <p class="about-bio">Hinter Ai2fireprotection steht ein zertifizierter Brandschutzbeauftragter mit einer Ausbildung in Elektrotechnik und langjähriger Erfahrung in Industrie und Kultur. Sein Leistungsspektrum reicht von der Beratung der Geschäftsführung über die Ausbildung von Brandschutzbeauftragten bis zur Wartungsüberwachung, DGUV&nbsp;V3-Prüfung und Räumungsplanung — stets in enger Abstimmung mit Behörden.</p>
+          <div class="about-links">
+            <a class="icon-link" href="https://www.linkedin.com/in/isaac-yaw-addae-30a428b4/" target="_blank" rel="noopener" aria-label="LinkedIn-Profil">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><line x1="7.5" y1="10.5" x2="7.5" y2="17"/><circle cx="7.5" cy="7" r="0.9" fill="currentColor" stroke="none"/><path d="M11.5 17v-4.2c0-1.4 1-2.3 2.3-2.3 1.3 0 2.2 1 2.2 2.4V17"/><line x1="11.5" y1="10.5" x2="11.5" y2="17"/></svg>
+            </a>
+            <a class="icon-link" href="mailto:ai2fireprotection@gmail.com" aria-label="E-Mail senden">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3.5,6 12,13 20.5,6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-head reveal"><h3>Bildungsweg</h3></div>
+      <div class="creds reveal">
+        <div class="cred-card">
+          <div class="cred-year">2009 – 2013</div>
+          <h4>Ausbildung Elektrotechnik</h4>
+          <p>BBS I Mainz-Hartenberg</p>
+        </div>
+        <div class="cred-card">
+          <div class="cred-year">2013 – 2014</div>
+          <h4>Staatlich geprüfter Techniker, Automatisierungstechnik</h4>
+          <p>Friedrich-Ebert-Schule, Wiesbaden</p>
+        </div>
+        <div class="cred-card">
+          <div class="cred-year">Seit 2018</div>
+          <h4>Zertifizierter Brandschutzbeauftragter</h4>
+          <p>Kontinuierliche Fort- und Weiterbildung</p>
+        </div>
+      </div>
+
+      <div class="sub-head reveal" id="erfahrung"><h3>Berufserfahrung</h3></div>
+      <div class="timeline reveal">
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <div class="tl-year">2025 – heute</div>
+          <h4>Ai2fireprotection</h4>
+          <div class="place">Selbstständiger Brandschutzbeauftragter &amp; Projektmanager</div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <div class="tl-year">2020 – heute</div>
+          <h4>Project Manager Fire Safety</h4>
+          <div class="place">Schneider Electric, Frankfurt am Main</div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <div class="tl-year">2016 – 2020</div>
+          <h4>Brandschutzbeauftragter</h4>
+          <div class="place">Senckenberg Museum, Frankfurt am Main</div>
+        </div>
+      </div>
+
+      <div class="sub-head reveal"><h3>Kompetenzen</h3></div>
+      <div class="tags reveal">
+        <span class="tag">Brandschutzrecht &amp; Einführung</span>
+        <span class="tag">Brandlehre</span>
+        <span class="tag">Explosionsgefahren</span>
+        <span class="tag">Abwehrender Brandschutz</span>
+        <span class="tag">Baulicher Brandschutz</span>
+        <span class="tag">Technischer Brandschutz</span>
+        <span class="tag">Organisatorischer Brandschutz</span>
+        <span class="tag">Brandversicherung &amp; VdS-Richtlinien</span>
+        <span class="tag">Löschübungen</span>
+        <span class="tag">Praxisübungen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANDSCHUTZ-CHECK -->
+  <section class="check" id="check">
+    <div class="container check-wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Kurzcheck</span>
+        <h2>Wie gut ist Ihr Brandschutz aufgestellt?</h2>
+        <p>Fünf kurze Fragen für eine erste Einordnung — unverbindlich und in unter einer Minute.</p>
+      </div>
+
+      <div class="check-panel reveal">
+        <div class="center-col" id="check-intro">
+          <svg class="check-intro-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/><polyline points="8,17 10,19 16,13"/></svg>
+          <p style="color:var(--text-dim); font-size:15px; margin-bottom:22px;">Beantworten Sie fünf kurze Fragen zu Ihrem aktuellen Brandschutz.</p>
+          <button type="button" class="btn btn-accent" onclick="checkStart()">Check starten →</button>
+        </div>
+
+        <div id="check-question" style="display:none;">
+          <div class="check-progress">
+            <span class="check-dot" id="check-dot-0"></span>
+            <span class="check-dot" id="check-dot-1"></span>
+            <span class="check-dot" id="check-dot-2"></span>
+            <span class="check-dot" id="check-dot-3"></span>
+            <span class="check-dot" id="check-dot-4"></span>
+          </div>
+          <div class="check-q" id="check-q-text"></div>
+          <div class="check-options">
+            <div class="check-option" id="check-option-good" onclick="checkAnswer(true)"></div>
+            <div class="check-option" id="check-option-bad" onclick="checkAnswer(false)"></div>
+          </div>
+        </div>
+
+        <div class="check-result center-col" id="check-result" style="display:none;">
+          <svg class="check-result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6.5v5C4 16.5 7.4 20.3 12 21c4.6-.7 8-4.5 8-9.5v-5L12 3Z"/><polyline points="8.5,12 11,14.5 15.5,9.5"/></svg>
+          <p id="check-result-text"></p>
+          <a class="btn btn-accent" href="#kontakt">Persönliche Beratung anfragen →</a>
+          <span class="check-restart" onclick="checkRestart()">Check erneut starten</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="container cta-inner reveal">
+      <span class="eyebrow" style="justify-content:center;">Jetzt handeln</span>
+      <h2>Warten Sie nicht, bis etwas passiert.</h2>
+      <p>Lassen Sie uns gemeinsam prüfen, wie gut Ihr Unternehmen auf den Ernstfall vorbereitet ist.</p>
+      <div class="cta-row">
+        <a class="btn btn-accent" href="#kontakt">Brandschutzberatung anfragen →</a>
+        <a class="cta-phone" href="tel:+491738883642">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0-.6.4-1 1-1h3l2 5-2 1.5c1 2.3 2.7 4 5 5L14.5 14l5 2v3c0 .6-.4 1-1 1C10.5 20 4 13.5 4 5Z"/></svg>
+          +49 173 888 36 42
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="kontakt">
+    <div class="container contact-wrap">
+      <div class="reveal">
+        <span class="eyebrow">Kontakt</span>
+        <h2>Sprechen wir über Ihren Brandschutz.</h2>
+        <p class="contact-sub">Ob Erstberatung, Audit oder laufende Betreuung — schreiben Sie mir oder rufen Sie direkt an. Ich melde mich zeitnah zurück.</p>
+        <div class="contact-card">
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0-.6.4-1 1-1h3l2 5-2 1.5c1 2.3 2.7 4 5 5L14.5 14l5 2v3c0 .6-.4 1-1 1C10.5 20 4 13.5 4 5Z"/></svg>
+            <div><div class="lbl">Telefon</div><div class="val"><a href="tel:+491738883642">+49 173 888 36 42</a></div></div>
+          </div>
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3.5,6 12,13 20.5,6"/></svg>
+            <div><div class="lbl">E-Mail</div><div class="val"><a href="mailto:ai2fireprotection@gmail.com">ai2fireprotection@gmail.com</a></div></div>
+          </div>
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+            <div><div class="lbl">Standort</div><div class="val">Jakob-Sieben-Str. 10, 55130 Mainz</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form reveal">
+        <div class="form-grid">
+          <div class="field"><label for="f-name">Name</label><input id="f-name" type="text" placeholder="Ihr Name"></div>
+          <div class="field"><label for="f-company">Unternehmen</label><input id="f-company" type="text" placeholder="Unternehmen (optional)"></div>
+          <div class="field"><label for="f-email">E-Mail</label><input id="f-email" type="email" placeholder="ihre@email.de"></div>
+          <div class="field"><label for="f-phone">Telefon</label><input id="f-phone" type="tel" placeholder="Optional"></div>
+          <div class="field full">
+            <label for="f-topic">Worum geht es?</label>
+            <select id="f-topic">
+              <option>Brandschutzbeauftragter</option>
+              <option>Brandschutzbegehung</option>
+              <option>Beratung</option>
+              <option>Unterweisung</option>
+              <option>Gefährdungsanalyse</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="field full"><label for="f-message">Nachricht</label><textarea id="f-message" placeholder="Beschreiben Sie kurz Ihr Anliegen"></textarea></div>
+        </div>
+        <button type="button" class="btn btn-accent btn-block" onclick="sendMail()">Anfrage senden →</button>
+        <p class="form-note">Öffnet Ihr E-Mail-Programm mit einer vorausgefüllten Nachricht an ai2fireprotection@gmail.com.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>© 2026 Ai2fireprotection · Isaac Addae · Vorbeugender Brandschutz, Mainz &amp; Rhein-Main</span>
+        <nav class="footer-nav">
+          <a href="#leistungen">Leistungen</a>
+          <a href="#branchen">Branchen</a>
+          <a href="#ueber-mich">Über mich</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+        <span class="fine"><span>Impressum</span><span>Datenschutz</span></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY MOBILE CTA -->
+  <div class="sticky-cta">
+    <a class="icon-link" href="tel:+491738883642" aria-label="Anrufen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0-.6.4-1 1-1h3l2 5-2 1.5c1 2.3 2.7 4 5 5L14.5 14l5 2v3c0 .6-.4 1-1 1C10.5 20 4 13.5 4 5Z"/></svg>
+    </a>
+    <a class="btn btn-accent" href="#kontakt">Beratung anfragen</a>
+  </div>
+</div>
+
+<script>
+(function () {
+  var CHECK_QUESTIONS = [
+    { text: "Haben Sie aktuell einen Brandschutzbeauftragten benannt?", good: "Ja", bad: "Nein" },
+    { text: "Fand die letzte Brandschutzbegehung innerhalb der letzten 6 Monate statt?", good: "Ja", bad: "Länger her / unbekannt" },
+    { text: "Werden Ihre Mitarbeiter regelmäßig im Brandschutz unterwiesen?", good: "Ja", bad: "Nein" },
+    { text: "Ist Ihre Brandschutzdokumentation aktuell?", good: "Ja", bad: "Nein / unsicher" },
+    { text: "Wurden Flucht- und Rettungswege kürzlich geprüft?", good: "Ja", bad: "Nein" }
+  ];
+  var step = -1;
+  var answers = [];
+
+  var introEl = document.getElementById("check-intro");
+  var questionEl = document.getElementById("check-question");
+  var resultEl = document.getElementById("check-result");
+  var qTextEl = document.getElementById("check-q-text");
+  var optGoodEl = document.getElementById("check-option-good");
+  var optBadEl = document.getElementById("check-option-bad");
+  var resultTextEl = document.getElementById("check-result-text");
+  var dots = [0, 1, 2, 3, 4].map(function (i) { return document.getElementById("check-dot-" + i); });
+
+  function render() {
+    var current = (step >= 0 && step < CHECK_QUESTIONS.length) ? CHECK_QUESTIONS[step] : null;
+    var isResult = step >= CHECK_QUESTIONS.length;
+
+    introEl.style.display = step === -1 ? "" : "none";
+    questionEl.style.display = current ? "" : "none";
+    resultEl.style.display = isResult ? "" : "none";
+
+    dots.forEach(function (dot, i) {
+      if (!dot) return;
+      var done = i < step || isResult;
+      dot.classList.toggle("is-done", done);
+    });
+
+    if (current) {
+      qTextEl.textContent = current.text;
+      optGoodEl.textContent = current.good;
+      optBadEl.textContent = current.bad;
+    }
+
+    if (isResult) {
+      var riskCount = answers.filter(function (a) { return !a; }).length;
+      resultTextEl.textContent = riskCount >= 3
+        ? "Bei Ihren Antworten gibt es einige Punkte, die sich lohnt, näher zu betrachten. Im persönlichen Gespräch lässt sich schnell klären, wo Handlungsbedarf besteht."
+        : "Ihre Antworten deuten auf eine solide Grundlage hin. Ein kurzer, persönlicher Austausch schadet trotzdem nie — für eine verlässliche Einschätzung braucht es immer den Blick vor Ort.";
+    }
+  }
+
+  window.checkStart = function () { step = 0; answers = []; render(); };
+  window.checkAnswer = function (isGood) { answers.push(isGood); step += 1; render(); };
+  window.checkRestart = function () { step = -1; answers = []; render(); };
+
+  window.sendMail = function () {
+    function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
+    var bodyLines = [
+      "Name: " + val("f-name"),
+      "Unternehmen: " + val("f-company"),
+      "E-Mail: " + val("f-email"),
+      "Telefon: " + val("f-phone"),
+      "",
+      val("f-message")
+    ];
+    var subject = encodeURIComponent("Anfrage: " + (val("f-topic") || "Brandschutz"));
+    var body = encodeURIComponent(bodyLines.join("\n"));
+    window.location.href = "mailto:ai2fireprotection@gmail.com?subject=" + subject + "&body=" + body;
+  };
+
+  render();
+
+  var nav = document.querySelector(".nav");
+  function onScroll() {
+    if (!nav) return;
+    if (window.scrollY > 30) nav.classList.add("is-scrolled");
+    else nav.classList.remove("is-scrolled");
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  var revealEls = document.querySelectorAll(".reveal");
+  var countEls = document.querySelectorAll("[data-count-to]");
+  function runCount(el) {
+    var target = parseInt(el.getAttribute("data-count-to"), 10) || 0;
+    var suffix = el.getAttribute("data-suffix") || "";
+    var start = performance.now();
+    var duration = 900;
+    function frame(now) {
+      var t = Math.min(1, (now - start) / duration);
+      var eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (t < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
+    revealEls.forEach(function (el) { io.observe(el); });
+
+    var countIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          runCount(entry.target);
+          countIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    countEls.forEach(function (el) { countIo.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+    countEls.forEach(function (el) { runCount(el); });
+  }
+})();
+</script>
+</body>
+</html>
