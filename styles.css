@@ -148,7 +148,7 @@
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: flex; align-items: center; gap: 12px; }
-    .brand-mark { width: 48px; height: 48px; color: var(--accent); flex: none; transition: transform 0.45s cubic-bezier(.34,1.56,.64,1); }
+    .brand-mark { width: 48px; height: 48px; object-fit: contain; flex: none; transition: transform 0.45s cubic-bezier(.34,1.56,.64,1); }
     .brand:hover .brand-mark { transform: rotate(-8deg) scale(1.1); }
     .brand-word { font-size: 28px; font-weight: 600; letter-spacing: 0.02em; }
     .brand-word b { color: var(--accent); font-weight: 600; }
