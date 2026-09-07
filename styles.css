@@ -209,15 +209,20 @@
       overflow: hidden;
       background: var(--bg);
     }
-    .hero-logo { position: absolute; inset: 0; z-index: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none; }
-    .hero-logo img { width: clamp(380px, 42vw, 680px); height: auto; opacity: 0.1; }
+    .hero-photo { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; opacity: 0.32; filter: saturate(0.65) contrast(1.05); }
+    .hero-photo::after {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(60% 55% at 78% 8%, var(--accent-soft), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, rgba(14,12,11,0.5) 30%, var(--bg) 94%);
+    }
     .hero::before {
       content: "";
       position: absolute; inset: -20% -10% auto -10%;
       height: 130%;
-      background:
-        radial-gradient(60% 55% at 78% 8%, var(--accent-soft), transparent 60%),
-        radial-gradient(40% 40% at 8% 30%, rgba(242,237,232,0.05), transparent 65%);
+      background: radial-gradient(40% 40% at 8% 30%, rgba(242,237,232,0.05), transparent 65%);
       animation: glow 10s ease-in-out infinite alternate;
       pointer-events: none;
       z-index: 0;
