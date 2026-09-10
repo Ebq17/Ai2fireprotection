@@ -444,6 +444,13 @@
 
     @media (max-width: 860px) {
       .nav-toggle-btn { display: flex; }
+      /* .nav has a backdrop-filter, which makes it the containing block for any
+         position:fixed descendant — so .nav-links' "inset:0" would resolve
+         against the header's own small box instead of the viewport, squashing
+         the full-screen menu into the header strip with no real background
+         behind the links. Drop the filter while the menu is open so the fixed
+         overlay sizes itself against the viewport again. */
+      .nav:has(#nav-toggle:checked) { backdrop-filter: none; -webkit-backdrop-filter: none; }
       /* full-screen overlay: avoids guessing the header's height (which changes
          between the scrolled/unscrolled state), so the menu can never end up
          partially hidden behind the header — the bug reported on Android. */
