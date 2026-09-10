@@ -13,7 +13,7 @@
     @font-face { font-family: 'Oswald'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/oswald-700-ext.woff2') format('woff2'); unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     body {
       margin: 0;
       background: #f7f3ee;
@@ -176,7 +176,17 @@
     }
     .nav-links a:not(.btn):hover { color: var(--text); }
     .nav-links a:not(.btn):hover::after { transform: scaleX(1); transform-origin: left; }
-    .nav-toggle-btn { display: none; cursor: pointer; padding: 8px; color: var(--text); }
+    .nav-toggle-btn {
+      display: none; cursor: pointer; color: var(--text);
+      align-items: center; justify-content: center;
+      width: 44px; height: 44px; margin: -10px; border-radius: 8px;
+      -webkit-tap-highlight-color: transparent;
+      position: relative; z-index: 2;
+    }
+    .nav-toggle-btn svg line { transform-box: fill-box; transform-origin: center; transition: transform 0.3s cubic-bezier(.4,0,.2,1), opacity 0.2s ease; }
+    .nav-toggle-input:checked ~ .nav-toggle-btn svg line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle-input:checked ~ .nav-toggle-btn svg line:nth-child(2) { opacity: 0; }
+    .nav-toggle-input:checked ~ .nav-toggle-btn svg line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
     /* ---------- language switch ---------- */
     .lang-switch {
       display: flex;
@@ -434,15 +444,29 @@
 
     @media (max-width: 860px) {
       .nav-toggle-btn { display: flex; }
+      /* full-screen overlay: avoids guessing the header's height (which changes
+         between the scrolled/unscrolled state), so the menu can never end up
+         partially hidden behind the header — the bug reported on Android. */
       .nav-links {
-        position: fixed; inset: 66px 0 0 0; margin: 0; padding: 28px 24px;
-        flex-direction: column; align-items: flex-start; gap: 22px;
-        background: rgba(255,255,255,0.98); backdrop-filter: blur(10px);
-        box-shadow: 0 12px 32px -16px rgba(23,17,12,0.18);
-        transform: translateY(-10px); opacity: 0; pointer-events: none;
-        transition: opacity 0.25s ease, transform 0.25s ease;
+        position: fixed; inset: 0; z-index: 10; margin: 0;
+        padding: calc(92px + env(safe-area-inset-top)) 28px calc(32px + env(safe-area-inset-bottom));
+        flex-direction: column; align-items: stretch; gap: 4px;
+        background: var(--bg-elev);
+        overflow-y: auto; -webkit-overflow-scrolling: touch;
+        transform: translateX(100%); pointer-events: none;
+        transition: transform 0.3s cubic-bezier(.4,0,.2,1);
       }
-      .nav-toggle-input:checked ~ .nav-links { opacity: 1; transform: translateY(0); pointer-events: auto; }
+      .nav-toggle-input:checked ~ .nav-links { transform: translateX(0); pointer-events: auto; }
+      .nav-links a:not(.btn) {
+        width: 100%; padding: 16px 2px; font-size: 21px;
+        border-bottom: 1px solid var(--line);
+      }
+      .nav-links a:not(.btn)::after { display: none; }
+      .nav-links .lang-switch { margin-top: 10px; }
+      .nav-links .lang-switch a, .nav-links .lang-switch span { padding: 9px 13px; font-size: 15px; }
+      .nav-links .btn { width: 100%; justify-content: center; margin-top: 20px; }
+      /* lock background scroll while the full-screen menu is open (no JS needed) */
+      body:has(#nav-toggle:checked) { overflow: hidden; height: 100%; }
       .stats-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .problem-grid { grid-template-columns: 1fr; }
       .services-grid { grid-template-columns: 1fr; }
@@ -467,6 +491,16 @@
     @media (min-width: 861px) and (max-width: 1080px) {
       .services-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .industries-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .nav-links { gap: 22px; }
+      .nav-links a:not(.btn) { font-size: 15.8px; }
+      .brand-word { font-size: 24px; }
+    }
+    /* small/older Android phones (e.g. 360-380px wide) */
+    @media (max-width: 380px) {
+      .brand-word { font-size: 21px; }
+      .hero h1 { font-size: clamp(36px, 11vw, 51.1px); }
+      .hero-sub { font-size: 18px; }
+      .section-head h2, .problem-head h2 { font-size: clamp(30px, 8vw, 37.7px); }
     }
 
     /* ---------- legal pages (Impressum / Datenschutz) ---------- */
