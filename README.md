@@ -64,4 +64,6 @@ Spamschutz über ein unsichtbares Honeypot-Feld; ohne Einwilligung oder mit ung�
 
 ### Lokal testen
 
+Automatische Tests (ohne echten Versand): `node --test tests/*.test.mjs`
+
 `netlify dev` (Netlify CLI) startet Seite und Function zusammen; `BREVO_API_KEY` dafür in einer lokalen `.env` setzen (steht in `.gitignore`).
