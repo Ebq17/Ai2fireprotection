@@ -446,6 +446,7 @@
       </div>
 
       <form class="form reveal" id="contact-form" novalidate>
+        <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
         <div class="form-grid">
           <div class="field"><label for="f-name">Name *</label><input id="f-name" name="name" type="text" placeholder="Your name" required autocomplete="name"></div>
           <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" type="text" placeholder="Company (optional)" autocomplete="organization"></div>
@@ -469,9 +470,10 @@
           <label for="f-consent">I have read the <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a> and agree that my information will be used to process my inquiry. *</label>
         </div>
         <p class="field-error" id="form-error">Please fill in all required fields and confirm the privacy policy.</p>
-        <button type="submit" class="btn btn-accent btn-block">Send Inquiry →</button>
-        <p class="field-ok" id="form-ok">Your email program will open with a pre-filled message. If it doesn't, feel free to write to us directly at <a href="mailto:ai2fireprotection@gmail.com">ai2fireprotection@gmail.com</a>.</p>
-        <p class="form-note">* Required field. Sending opens your email program with a pre-filled message to ai2fireprotection@gmail.com — no data is transmitted to a server.</p>
+        <button type="submit" id="f-submit" class="btn btn-accent btn-block">Send Inquiry →</button>
+        <p class="field-ok" id="form-ok" role="status">Thank you! Your inquiry has been received. You will shortly receive a confirmation by email – we usually get back to you within 1–2 business days.</p>
+        <p class="field-error" id="form-fail" role="alert">Your inquiry could not be sent right now. Please try again or write to us directly at <a href="mailto:ai2fireprotection@gmail.com">ai2fireprotection@gmail.com</a>.</p>
+        <p class="form-note">* Required field. Your details are used solely to handle your inquiry and are transmitted to us via our email service provider Brevo. See our <a href="privacy-policy.html">privacy policy</a> for details.</p>
       </form>
     </div>
   </section>
@@ -569,18 +571,41 @@
       }
       formError.classList.remove("is-visible");
 
-      var bodyLines = [
-        "Name: " + val("f-name"),
-        "Company: " + val("f-company"),
-        "Email: " + val("f-email"),
-        "Phone: " + val("f-phone"),
-        "",
-        val("f-message")
-      ];
-      var subject = encodeURIComponent("Inquiry: " + (val("f-topic") || "Fire Protection"));
-      var body = encodeURIComponent(bodyLines.join("\n"));
-      window.location.href = "mailto:ai2fireprotection@gmail.com?subject=" + subject + "&body=" + body;
-      formOk.classList.add("is-visible");
+      var formFail = document.getElementById("form-fail");
+      var submitBtn = document.getElementById("f-submit");
+      var btnLabel = submitBtn ? submitBtn.innerHTML : "";
+      formFail.classList.remove("is-visible");
+      formOk.classList.remove("is-visible");
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = "Sending …"; }
+
+      var payload = {
+        name: val("f-name"),
+        company: val("f-company"),
+        email: val("f-email"),
+        phone: val("f-phone"),
+        topic: val("f-topic"),
+        message: val("f-message"),
+        website: val("f-website"),
+        consent: document.getElementById("f-consent").checked,
+        lang: "en"
+      };
+
+      fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) { return res.json().catch(function () { return {}; }).then(function (data) { return res.ok && data.ok; }); })
+        .catch(function () { return false; })
+        .then(function (success) {
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = btnLabel; }
+          if (success) {
+            contactForm.reset();
+            formOk.classList.add("is-visible");
+          } else {
+            formFail.classList.add("is-visible");
+          }
+        });
     });
   }
 
