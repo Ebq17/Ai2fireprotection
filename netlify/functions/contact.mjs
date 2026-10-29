@@ -24,7 +24,7 @@ const TEXT = {
     confirmSubject: "Ihre Anfrage bei Ai2fireprotection",
     hello: (n) => `Guten Tag ${n},`,
     intro:
-      "vielen Dank für Ihre Nachricht. Ihre Anfrage ist bei uns eingegangen – wir melden uns in der Regel innerhalb von 1–2 Werktagen bei Ihnen.",
+      "vielen Dank für Ihre Nachricht. Ihre Anfrage ist bei uns eingegangen – wir melden uns bei Ihnen.",
     summary: "Ihre Angaben im Überblick",
     labels: { topic: "Thema", company: "Unternehmen", phone: "Telefon", message: "Nachricht" },
     urgent: "Bei dringenden Anliegen erreichen Sie uns auch direkt per Antwort auf diese E-Mail.",
@@ -36,7 +36,7 @@ const TEXT = {
     confirmSubject: "Your inquiry to Ai2fireprotection",
     hello: (n) => `Hello ${n},`,
     intro:
-      "thank you for your message. We have received your inquiry and will usually get back to you within 1–2 business days.",
+      "thank you for your message. We have received your inquiry and will get back to you.",
     summary: "Your details at a glance",
     labels: { topic: "Topic", company: "Company", phone: "Phone", message: "Message" },
     urgent: "For urgent matters, you can also simply reply to this email.",
